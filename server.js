@@ -18,4 +18,7 @@ app.listen(process.env.PORT || 5000, () => console.log('Express server!'));
     connected repo with travis
     we used preinstall under scripts in package.json
 
+    We install heroku CLI tools
+    We log in with our heroku creds
+
 */
