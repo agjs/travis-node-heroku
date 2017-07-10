@@ -1,15 +1,22 @@
 const express = require('express');
 const app = express();
+const mongoose = require('mongoose');
 
-app.get('/home', (req, res, next) => {
-    res.status(200).send('<h1>Hello, World & Matt!</h1>');
+mongoose.connect(process.env.MONGODB_ADDRESS || 'mongodb://localhost/node-matt-db');
+
+const fruitSchema = new mongoose.Schema({ name: String });
+const Fruit = mongoose.model('Fruit', fruitSchema);
+
+Fruit.create([{ name: 'apple' }, { name: 'orange' }]);
+
+app.get('/home', async (req, res, next) => {
+    res.status(200).json(await Fruit.find({}));
 });
 
 app.listen(process.env.PORT || 5000, () => console.log('Express server!'));
 
 
 /*
-
     Created a simple express app
     Created a git repo
     Created a simple .yml file
@@ -22,3 +29,4 @@ app.listen(process.env.PORT || 5000, () => console.log('Express server!'));
     We log in with our heroku creds
 
 */
+
